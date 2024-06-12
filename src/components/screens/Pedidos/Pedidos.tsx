@@ -20,7 +20,7 @@ const Pedidos: React.FC = () => {
   return (
     <Box sx={{ padding: 3, mt: 10 }}>
       {["CAJERO"].includes(rol) && (
-        <Box sx={{mb:3}}>
+        <Box sx={{ mb: 3 }}>
           <Typography variant="h4" gutterBottom>
             Pedidos Pendientes
           </Typography>
@@ -51,10 +51,10 @@ const Pedidos: React.FC = () => {
           <PedidosPorEstado estado={Estado.DELIVERY} />
         </>
       )}
-      {["ADMIN"].includes(rol) && (
-        <>
+      {["ADMIN", "CAJERO"].includes(rol) && (
+        <Box sx={{ mt: 2 }}>
           <AllPedidos />
-        </>
+        </Box>
       )}
     </Box>
   );

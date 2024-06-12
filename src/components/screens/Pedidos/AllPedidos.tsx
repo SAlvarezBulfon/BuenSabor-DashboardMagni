@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { usePedidoContext } from '../../../hooks/usePedidoContext';
 import Column from '../../../types/Column';
 import TableComponent from '../../ui/Tables/Table/Table';
 import PedidoService from '../../../services/PedidoService';
+import { Link } from 'react-router-dom';
 
 const AllPedidos: React.FC = () => {
   const { pedidos, actualizarPedidos } = usePedidoContext();
   const [loading, setLoading] = useState(true);
+  const url = import.meta.env.VITE_API_URL;
 
   const fetchPedidos = async () => {
     try {
       const pedidoService = new PedidoService();
-      const url = import.meta.env.VITE_API_URL;
       const pedidos = await pedidoService.getAll(`${url}/pedido`);
       actualizarPedidos(pedidos);
     } catch (error) {
@@ -24,7 +25,7 @@ const AllPedidos: React.FC = () => {
 
   useEffect(() => {
     fetchPedidos();
-    const interval = setInterval(fetchPedidos, 60000); // Recargar cada 60 segundos
+    const interval = setInterval(fetchPedidos, 10000); // Recargar cada 60 segundos
     return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
   }, []);
 
@@ -33,7 +34,20 @@ const AllPedidos: React.FC = () => {
     { id: 'fechaPedido', label: 'Fecha Pedido', renderCell: (rowData) => <>{rowData.fechaPedido}</> },
     { id: 'estado', label: 'Estado', renderCell: (rowData) => <>{rowData.estado}</> },
     { id: 'cliente', label: 'Cliente', renderCell: (rowData) => <>{rowData.cliente.email}</> },
-    { id: 'total', label: 'Total', renderCell: (rowData) => <>{rowData.total}</> },
+    {id: 'accion',
+      label: 'Acción',
+      renderCell: (rowData) => (
+        <Button
+          component={Link}
+          to={`${url}/facturas/factura/${rowData.id}`}
+          variant="contained"
+          color="error"
+          disabled={rowData.estado !== 'FACTURADO'}
+        >
+          Factura
+        </Button>
+      ),
+    },
   ];
 
   if (loading) {
