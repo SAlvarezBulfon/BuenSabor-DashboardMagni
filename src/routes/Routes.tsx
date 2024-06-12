@@ -16,6 +16,7 @@ import Login from '../components/screens/Login/Login';
 import EmpresaComponent from '../components/screens/Empresa/EmpresaComponent';
 import useAuthToken from '../hooks/useAuthToken';
 import RutaPrivada from '../components/RutaPrivada/RutaPrivada';
+import Pedidos from '../components/screens/Pedidos/Pedidos';
 
 const Rutas: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -72,6 +73,7 @@ const Rutas: React.FC = () => {
               <Route path="/categorias/:sucursalId" element={<RutaPrivada component={Categoria} roles={["ADMIN", "EMPLEADO"]}/>} />
               <Route path="/promociones/:sucursalId" element={<RutaPrivada component={Promocion} roles={["ADMIN", "EMPLEADO"]}/>} />
               <Route path="/empleados/:sucursalId" element={<RutaPrivada component={Empleado} roles={["ADMIN"]}/>} />
+              <Route path="/pedidos/:sucursalId" element={<RutaPrivada component={Pedidos} roles={["ADMIN", "EMPLEADO", "CAJERO", "COCINERO"]}/>} />
             </Route>
             <Route path="*" element={<Navigate to="/empresa" />} />
           </>

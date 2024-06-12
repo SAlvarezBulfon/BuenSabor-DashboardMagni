@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Table, TableHead, TableBody, TableRow, TableCell, TableSortLabel, TablePagination, Box } from '@mui/material';
-import DeleteButton from './DeleteButton'; 
+import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
 import Row from '../../../../types/Row';
 
-interface Props{
+interface Props {
   data: any[]; // Utiliza la interfaz genérica DataModel<T>
   columns: any[];
   onEdit?: (item: any) => void; // Utiliza la interfaz genérica DataModel<T>
-  onDelete: (item:any ) => void; // Utiliza la interfaz genérica DataModel<T>
+  onDelete?: (item: any) => void; // Utiliza la interfaz genérica DataModel<T>
 }
 
 const TableComponent: React.FC<Props> = ({ data, columns, onEdit, onDelete }) => {
@@ -58,7 +58,8 @@ const TableComponent: React.FC<Props> = ({ data, columns, onEdit, onDelete }) =>
                 </TableSortLabel>
               </TableCell>
             ))}
-            <TableCell>Acciones</TableCell> {/* Nueva columna para acciones */}
+            {onEdit && onDelete &&
+            <TableCell>Acciones</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -70,11 +71,13 @@ const TableComponent: React.FC<Props> = ({ data, columns, onEdit, onDelete }) =>
                 </TableCell>
               ))}
               <TableCell>
-                <Box sx={{ display: 'flex'}}>
+                <Box sx={{ display: 'flex' }}>
                   {onEdit &&
                     <EditButton onClick={() => onEdit(row)} />
                   }
-                  <DeleteButton onClick={() => onDelete(row)} />
+                  {onDelete &&
+                    <DeleteButton onClick={() => onDelete(row)} />
+                  }
                 </Box>
               </TableCell>
             </TableRow>

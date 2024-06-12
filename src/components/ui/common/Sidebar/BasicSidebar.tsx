@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { cilBarChart, cilCart, cilFastfood, cilPeople, cilDollar, cilSpeedometer } from "@coreui/icons";
+import { cilBarChart, cilCart, cilFastfood, cilPeople, cilDollar, cilSpeedometer, cilClipboard } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { CNavGroup, CNavItem, CNavTitle, CSidebar, CSidebarNav } from "@coreui/react";
 import '@coreui/coreui/dist/css/coreui.min.css';
@@ -11,7 +11,7 @@ const BasicSidebar: React.FC = () => {
     const { sucursalId } = useParams<{ sucursalId: string }>();
     const [sucursalNombre, setSucursalNombre] = useState<string>('');
     const [empresaNombre, setEmpresaNombre] = useState<string>('');
-    const [rol, setRole] = useState<string>(''); // Cambié 'String' por 'string'
+    const [rol, setRole] = useState<string>('');
     const url = import.meta.env.VITE_API_URL;
     const sucursalService = new SucursalService();
 
@@ -34,12 +34,12 @@ const BasicSidebar: React.FC = () => {
         fetchSucursalYEmpresaNombre();
     }, [sucursalId]);
 
-    useEffect(() => { // Mover la lógica para obtener el rol al useEffect
+    useEffect(() => {
         const userDataString = localStorage.getItem('usuario');
         if (userDataString) {
             const userData = JSON.parse(userDataString);
             const rol = userData["https://my-app.example.com/roles"];
-            console.log("rol",rol[0]);
+            console.log("rol", rol[0]);
             setRole(rol[0]);
         }
     }, []);
@@ -53,7 +53,7 @@ const BasicSidebar: React.FC = () => {
                     </CNavTitle>
                     {["ADMIN", "COCINERO", "EMPLEADO"].includes(rol) && (
                         <CNavItem>
-                            <Link to={`/dashboard/${sucursalId}`} className="nav-link" >
+                            <Link to={`/dashboard/${sucursalId}`} className="nav-link">
                                 <CIcon customClassName="nav-icon" icon={cilBarChart} />
                                 Estadísticas
                             </Link>
@@ -69,7 +69,7 @@ const BasicSidebar: React.FC = () => {
                             }
                         >
                             <CNavItem>
-                                <Link to={`/productos/${sucursalId}`} className="nav-link" >
+                                <Link to={`/productos/${sucursalId}`} className="nav-link">
                                     <span className="nav-icon"><span className="nav-icon-bullet"></span></span>
                                     Lista de Productos
                                 </Link>
@@ -102,7 +102,7 @@ const BasicSidebar: React.FC = () => {
                             }
                         >
                             <CNavItem>
-                                <Link to={`/empleados/${sucursalId}`} className="nav-link" >
+                                <Link to={`/empleados/${sucursalId}`} className="nav-link">
                                     <span className="nav-icon"><span className="nav-icon-bullet"></span></span>
                                     Lista de Empleados
                                 </Link>
@@ -122,6 +122,14 @@ const BasicSidebar: React.FC = () => {
                             <Link to={`/unidadMedida/${sucursalId}`} className="nav-link">
                                 <CIcon customClassName="nav-icon" icon={cilSpeedometer} />
                                 Unidad de Medida
+                            </Link>
+                        </CNavItem>
+                    )}
+                    {["CAJERO", "EMPLEADO","ADMIN", "COCINERO" ].includes(rol) && (
+                        <CNavItem>
+                            <Link to={`/pedidos/${sucursalId}`} className="nav-link">
+                                <CIcon customClassName="nav-icon" icon={cilClipboard} />
+                                Pedidos
                             </Link>
                         </CNavItem>
                     )}
