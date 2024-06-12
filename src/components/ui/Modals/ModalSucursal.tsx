@@ -17,6 +17,7 @@ import { CheckCircleOutline, HighlightOff } from '@mui/icons-material';
 import EmpresaService from '../../../services/EmpresaService';
 import IEmpresa from '../../../types/IEmpresa';
 import useAuthToken from '../../../hooks/useAuthToken';
+import { useNavigate } from 'react-router-dom';
 
 interface ModalSucursalProps {
   modalName: string;
@@ -45,6 +46,7 @@ const ModalSucursal: React.FC<ModalSucursalProps> = ({
   const localidadService = new LocalidadService();
   const empresaService = new EmpresaService();
   const getToken = useAuthToken();
+  const navigate = useNavigate();
 
   const [empresa, setEmpresa] = useState<IEmpresa>()
   const [paises, setPaises] = useState<any[]>([]);
@@ -220,7 +222,6 @@ const ModalSucursal: React.FC<ModalSucursalProps> = ({
         };
         console.log('Data a enviar en modo edición:', sucursalData);
         await sucursalService.putSec(`${URL}/sucursal`, id, sucursalData, token);
-        window.location.reload();
       } else {
         // Si no estamos en modo de edición, es un objeto SucursalPost y agregamos el id de la empresa
         sucursalData = {
@@ -231,7 +232,6 @@ const ModalSucursal: React.FC<ModalSucursalProps> = ({
         };
         console.log('Data a enviar en modo creación:', sucursalData);
         await sucursalService.postSec(`${URL}/sucursal`, sucursalData, token);
-        window.location.reload(); // Recargar la página después de eliminar la sucursal
       }
 
       getSucursales();

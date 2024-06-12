@@ -8,7 +8,6 @@ import Insumo from '../components/screens/Insumo/Insumo';
 import Producto from '../components/screens/Producto/Producto';
 import Categoria from '../components/screens/Categoria/Categoria';
 import UnidadMedida from '../components/screens/UnidadMedida/UnidadMedida';
-import Promocion from '../components/screens/Promocion/Promocion';
 import Empleado from '../components/screens/Empleado/Empleado';
 import CallbackPage from '../components/auth/CallbackPage';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -66,12 +65,11 @@ const Rutas: React.FC = () => {
             <Route path="/empresa" element={<RutaPrivada component={EmpresaComponent} roles={["ADMIN"]}/> } />
             <Route path="/empresa/:empresaId" element={<RutaPrivada component={SucursalComponent} roles={["ADMIN"]}/> } />
             <Route path="/" element={<SidebarLayout />}>
-              <Route path="/dashboard/:sucursalId" element={<RutaPrivada component={Inicio} roles={["ADMIN", "COCINERO", "EMPLEADO"]} />} />
+              <Route path="/dashboard/:sucursalId" element={<RutaPrivada component={Inicio} roles={["ADMIN", "COCINERO", "EMPLEADO", "CAJERO"]} />} />
               <Route path="/insumos/:sucursalId" element={<RutaPrivada component={Insumo} roles={["EMPLEADO","ADMIN"]}/>} />
               <Route path="/productos/:sucursalId" element={<RutaPrivada component={Producto} roles={["ADMIN", "COCINERO", "EMPLEADO"]} />} />
               <Route path="/unidadMedida/:sucursalId" element={<RutaPrivada component={UnidadMedida} roles={["ADMIN","EMPLEADO"]} />} />
               <Route path="/categorias/:sucursalId" element={<RutaPrivada component={Categoria} roles={["ADMIN", "EMPLEADO"]}/>} />
-              <Route path="/promociones/:sucursalId" element={<RutaPrivada component={Promocion} roles={["ADMIN", "EMPLEADO"]}/>} />
               <Route path="/empleados/:sucursalId" element={<RutaPrivada component={Empleado} roles={["ADMIN"]}/>} />
               <Route path="/pedidos/:sucursalId" element={<RutaPrivada component={Pedidos} roles={["ADMIN", "EMPLEADO", "CAJERO", "COCINERO"]}/>} />
             </Route>

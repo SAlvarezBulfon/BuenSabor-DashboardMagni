@@ -5,10 +5,13 @@ import Column from '../../../types/Column';
 import TableComponent from '../../ui/Tables/Table/Table';
 import PedidoService from '../../../services/PedidoService';
 import { Link } from 'react-router-dom';
+import PedidoDetailModal from '../../ui/Modals/PedidoDetailModal';
 
 const AllPedidos: React.FC = () => {
   const { pedidos, actualizarPedidos } = usePedidoContext();
   const [loading, setLoading] = useState(true);
+  const [selectedPedidoId, setSelectedPedidoId] = useState<number | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const url = import.meta.env.VITE_API_URL;
 
   const fetchPedidos = async () => {
@@ -29,23 +32,44 @@ const AllPedidos: React.FC = () => {
     return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
   }, []);
 
+  const handleOpenModal = (id: number) => {
+    setSelectedPedidoId(id);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedPedidoId(null);
+    setModalOpen(false);
+  };
+
   const columns: Column[] = [
     { id: 'id', label: 'ID', renderCell: (rowData) => <>{rowData.id}</> },
     { id: 'fechaPedido', label: 'Fecha Pedido', renderCell: (rowData) => <>{rowData.fechaPedido}</> },
     { id: 'estado', label: 'Estado', renderCell: (rowData) => <>{rowData.estado}</> },
     { id: 'cliente', label: 'Cliente', renderCell: (rowData) => <>{rowData.cliente.email}</> },
-    {id: 'accion',
+    {
+      id: 'accion',
       label: 'Acción',
       renderCell: (rowData) => (
-        <Button
-          component={Link}
-          to={`${url}/facturas/factura/${rowData.id}`}
-          variant="contained"
-          color="error"
-          disabled={rowData.estado !== 'FACTURADO'}
-        >
-          Factura
-        </Button>
+        <>
+          <Button
+            component={Link}
+            to={`${url}/facturas/factura/${rowData.id}`}
+            variant="contained"
+            color="error"
+            disabled={rowData.estado !== 'FACTURADO'}
+          >
+            Factura
+          </Button>
+          <Button
+            onClick={() => handleOpenModal(rowData.id)}
+            variant="contained"
+            color="error"
+            style={{ marginLeft: '10px' }}
+          >
+            Ver Detalles
+          </Button>
+        </>
       ),
     },
   ];
@@ -60,6 +84,7 @@ const AllPedidos: React.FC = () => {
         Todos los Pedidos
       </Typography>
       <TableComponent data={pedidos} columns={columns} />
+      <PedidoDetailModal open={modalOpen} onClose={handleCloseModal} pedidoId={selectedPedidoId} />
     </Box>
   );
 };

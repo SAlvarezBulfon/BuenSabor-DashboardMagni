@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, TablePagination, Paper, FormControl, Select, MenuItem, Button } from '@mui/material';
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, TablePagination, Paper, FormControl, Select, MenuItem, Button, IconButton, Tooltip } from '@mui/material';
 import { Estado } from '../../../types/enums/Estados';
 import PedidoService from '../../../services/PedidoService';
 import { usePedidoContext } from '../../../hooks/usePedidoContext';
 import Swal from 'sweetalert2';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import PedidoDetailModal from '../Modals/PedidoDetailModal';
 
 const REFRESH_INTERVAL = 90000;
 
@@ -24,6 +26,8 @@ const PedidosPorEstado: React.FC<PedidosPorEstadoProps> = ({ estado }) => {
   const [estadosEditados, setEstadosEditados] = useState<{ [key: number]: Estado }>({});
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [selectedPedidoId, setSelectedPedidoId] = useState<number | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const fetchPedidos = async () => {
     try {
@@ -108,6 +112,16 @@ const PedidosPorEstado: React.FC<PedidosPorEstadoProps> = ({ estado }) => {
     setPage(0);
   };
 
+  const handleOpenModal = (pedidoId: number) => {
+    setSelectedPedidoId(pedidoId);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedPedidoId(null);
+    setModalOpen(false);
+  };
+
   if (loading) {
     return <div>Cargando pedidos...</div>;
   }
@@ -125,7 +139,7 @@ const PedidosPorEstado: React.FC<PedidosPorEstadoProps> = ({ estado }) => {
               <TableCell>Total</TableCell>
               <TableCell>Método de Pago</TableCell>
               <TableCell>Estado</TableCell>
-              <TableCell>Cambiar Estado</TableCell>
+              <TableCell>Acciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -156,14 +170,20 @@ const PedidosPorEstado: React.FC<PedidosPorEstadoProps> = ({ estado }) => {
                       sx={{
                         bgcolor: "#fb6376",
                         "&:hover": {
-                            bgcolor: "#d73754",
+                          bgcolor: "#d73754",
                         },
                         ml: 2
-                    }}
+                      }}
                     >
                       Guardar
                     </Button>
                   )}
+                  <Tooltip title="Ver detalles" arrow>
+                    <IconButton onClick={() => handleOpenModal(pedido.id)} sx={{ ml: 2 }}>
+                      <VisibilityIcon />
+                    </IconButton>
+                  </Tooltip>
+
                 </TableCell>
               </TableRow>
             ))}
@@ -178,6 +198,11 @@ const PedidosPorEstado: React.FC<PedidosPorEstadoProps> = ({ estado }) => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <PedidoDetailModal
+        open={modalOpen}
+        onClose={handleCloseModal}
+        pedidoId={selectedPedidoId}
       />
     </Paper>
   );

@@ -367,12 +367,9 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
                 detalles: dataArticles.map((detalle) => {
                     return {
                         cantidad: detalle.cantidad,
-                        idArticulo: isEditMode ?
-                        (detalle.insumo !== null ? detalle.insumo.id :
-                            (detalle.manufacturado !== null ? detalle.manufacturado.id : null))
-                        : detalle.idArticulo,
-                    };
-                }),
+                        idArticulo: detalle.idArticulo,
+                };
+            }),
             };
 
             console.log(promocionPost)

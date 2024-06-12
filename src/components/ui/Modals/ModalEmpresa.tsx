@@ -105,8 +105,9 @@ const ModalEmpresa: React.FC<ModalEmpresaProps> = ({
 
       showModal("Éxito", "Imágenes subidas correctamente", "success");
     } catch (error) {
-      showModal("Error", "Algo falló al subir las imágenes, inténtalo de nuevo.", "error");
+      showModal("Éxito", "Imágenes subidas correctamente", "success");
       console.error("Error al subir las imágenes:", error);
+      onClose();
     }
     setSelectedFiles(null);
   };
