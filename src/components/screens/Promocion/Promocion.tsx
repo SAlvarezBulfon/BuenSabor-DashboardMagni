@@ -15,6 +15,7 @@ import ModalPromocion from '../../ui/Modals/ModalPromocion';
 import IPromocion from '../../../types/IPromocion';
 import PromocionPost from '../../../types/post/PromocionPost';
 import useAuthToken from '../../../hooks/useAuthToken';
+import PromocionModal from '../../ui/Modals/PromoModal';
 
 const Promocion: React.FC = () => {
     const url = import.meta.env.VITE_API_URL;
@@ -27,6 +28,7 @@ const Promocion: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const getToken = useAuthToken();
+    const [openPromoModal, setOpenPromoModal] = useState(false);
     const fetchPromociones = async () => {
         try {
             setIsLoading(true);
@@ -79,8 +81,10 @@ const Promocion: React.FC = () => {
     };
 
     const handleViewDetails = (promocion: any) => {
+        
         setSelectedPromocion(promocion);
         dispatch(toggleModal({ modalName: "modalPromoDetail" }));
+        setOpenPromoModal(true);
     };
 
     const renderPromociones = (promociones: IPromocion[]) => {
@@ -133,12 +137,9 @@ const Promocion: React.FC = () => {
                         description="Agrega nuevas promociones utilizando el formulario."
                     />
                 ) : (
-
-
                     <Stack direction="column" spacing={1} mt={2}>
                         {renderPromociones(filteredData)}
                     </Stack>
-
                 )}
             </Container>
             {sucursalId &&
@@ -152,8 +153,17 @@ const Promocion: React.FC = () => {
                     onClose={() => dispatch(toggleModal({ modalName: "modalPromocion" }))}
                 />
             }
+          {selectedPromocion && openPromoModal &&
+                <PromocionModal
+                    open={true}
+                    onClose={() => setOpenPromoModal(false)}
+                    promocion={selectedPromocion}
+                />
+            }
+
         </Box>
     );
 };
 
 export default Promocion;
+

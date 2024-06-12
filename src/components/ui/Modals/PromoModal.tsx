@@ -55,9 +55,10 @@ const PromoModal: React.FC<PromocionModalProps> = ({ open, onClose, promocion })
                         <List>
                             {promocion && promocion.detalles.map((detalle: any, index: number) => (
                                 <ListItem key={index}>
-                                    <ListItemText
-                                        primary={`Cantidad: ${detalle.cantidad}`}
-                                        secondary={`Artículo: ${detalle.insumo ? detalle.insumo.denominacion : detalle.manufacturado.denominacion}`}
+                                 <ListItemText
+                                   primary ={`Artículo: ${detalle.insumo ? detalle.insumo.denominacion : detalle.manufacturado.denominacion}`}
+                                   secondary ={`Cantidad: ${detalle.cantidad}`}
+                                        
                                     />
                                 </ListItem>
                             ))}
