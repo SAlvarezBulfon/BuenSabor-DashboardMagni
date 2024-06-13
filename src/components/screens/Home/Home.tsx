@@ -43,7 +43,7 @@ const Home = () => {
                                     Bienvenido a {empresa.nombre}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                                 <Typography variant="h6" gutterBottom>
                                     Información de la Empresa:
                                 </Typography>
@@ -51,9 +51,7 @@ const Home = () => {
                                     <strong>Razón Social:</strong> {empresa.razonSocial}<br />
                                     <strong>CUIL:</strong> {empresa.cuil}
                                 </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant="h6" gutterBottom>
+                                <Typography variant="h6" gutterBottom sx={{ marginTop: 2 }}>
                                     Información de la Sucursal:
                                 </Typography>
                                 <Typography variant="body1">
@@ -63,8 +61,8 @@ const Home = () => {
                                     <strong>Dirección:</strong> {sucursal?.domicilio.calle} {sucursal?.domicilio.numero}, {sucursal?.domicilio.localidad.nombre}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <BootstrapCarousel imagenes={empresa.imagenes}  />
+                            <Grid item xs={5}>
+                                <BootstrapCarousel imagenes={empresa.imagenes} />
                             </Grid>
                         </Grid>
                     </CardContent>
