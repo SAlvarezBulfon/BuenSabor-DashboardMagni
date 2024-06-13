@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import { Box, Typography, Button, Container, CircularProgress } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { useParams } from 'react-router-dom';
-
 import Row from '../../../types/Row';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import EmpleadoService from '../../../services/EmpleadoService';
 import { setEmpleado } from '../../../redux/slices/EmpleadoReducer';
 import { handleSearch, onDelete } from '../../../utils/utils';
 import Column from '../../../types/Column';
-
 import { toggleModal } from '../../../redux/slices/ModalReducer';
 import IEmpleado from '../../../types/Empleado';
 import EmpleadoPost from '../../../types/post/EmpleadoPost';

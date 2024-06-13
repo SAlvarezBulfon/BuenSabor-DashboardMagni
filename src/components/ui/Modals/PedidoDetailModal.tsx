@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Box, Typography, ListItem, ListItemText, Divider, Button, CircularProgress, Grid } from '@mui/material';
+import { Modal, Box, Typography, Divider, Button, CircularProgress, Grid } from '@mui/material';
 import { Pedido } from '../../../types/Pedido';
 import PedidoService from '../../../services/PedidoService';
+import ClientCard from '../Cards/ClientCard/ClientCard';
+import PedidoDetailCard from '../Cards/PedidoDetailCard/PedidoDetail';
+
 
 interface PedidoDetailModalProps {
   open: boolean;
@@ -69,76 +72,44 @@ const PedidoDetailModal: React.FC<PedidoDetailModalProps> = ({ open, onClose, pe
         ) : pedido ? (
           <>
             <Typography variant="h4" gutterBottom>
-              Detalles del Pedido
+            Pedido
             </Typography>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Fecha Pedido" secondary={pedido.fechaPedido} />
-                </ListItem>
+              <Grid item xs={12}>
+                <PedidoDetailCard
+                  fechaPedido={pedido.fechaPedido}
+                  horaEstimadaFinalizacion={pedido.horaEstimadaFinalizacion}
+                  estado={pedido.estado}
+                  tipoEnvio={pedido.tipoEnvio}
+                  domicilio={`${pedido.domicilio.calle} ${pedido.domicilio.numero}, ${pedido.domicilio.cp}, ${pedido.domicilio.localidad.nombre}`}
+                  total={pedido.total}
+                  formaPago={pedido.formaPago}
+                />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Estado" secondary={pedido.estado} />
-                </ListItem>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Cliente Email" secondary={pedido.cliente.email} />
-                </ListItem>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Cliente Nombre" secondary={`${pedido.cliente.nombre} ${pedido.cliente.apellido}`} />
-                </ListItem>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Cliente Teléfono" secondary={pedido.cliente.telefono} />
-                </ListItem>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Hora Estimada Finalización" secondary={pedido.horaEstimadaFinalizacion} />
-                </ListItem>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Total" secondary={`$${pedido.total}`} />
-                </ListItem>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Tipo Envío" secondary={pedido.tipoEnvio} />
-                </ListItem>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <ListItem>
-                  <ListItemText primary="Forma de Pago" secondary={pedido.formaPago} />
-                </ListItem>
+              <Grid item xs={12}>
+                <ClientCard
+                  email={pedido.cliente.email}
+                  nombre={pedido.cliente.nombre}
+                  apellido={pedido.cliente.apellido}
+                  telefono={pedido.cliente.telefono}
+                />
               </Grid>
             </Grid>
             <Divider sx={{ my: 2 }} />
             <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>
-              Detalles de los Artículos
+            <strong>Detalles de los Artículos</strong>
             </Typography>
             <Grid container spacing={2}>
               {pedido.detallePedidos.map((detalle) => (
                 <React.Fragment key={detalle.id}>
                   <Grid item xs={12} sm={4}>
-                    <ListItem>
-                      <ListItemText primary="Artículo" secondary={detalle.articuloNombre} />
-                    </ListItem>
+                    <Typography variant="body1">Artículo: {detalle.articuloNombre}</Typography>
                   </Grid>
                   <Grid item xs={12} sm={4}>
-                    <ListItem>
-                      <ListItemText primary="Cantidad" secondary={detalle.cantidad} />
-                    </ListItem>
+                    <Typography variant="body1">Cantidad: {detalle.cantidad}</Typography>
                   </Grid>
                   <Grid item xs={12} sm={4}>
-                    <ListItem>
-                      <ListItemText primary="SubTotal" secondary={`$${detalle.subTotal}`} />
-                    </ListItem>
+                    <Typography variant="body1">SubTotal: ${detalle.subTotal}</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

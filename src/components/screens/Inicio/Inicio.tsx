@@ -8,23 +8,22 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ReportesCard  from "../../ui/Cards/Reportes/ReportesCard";
 
 
-// Contenido para las tarjetas de inicio
 const productosContent = {
     url: 'https://images.unsplash.com/photo-1615996001375-c7ef13294436?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     title: 'Productos',
-    content: 'Añade nuevos platos o actualiza los precios para mejorar la experiencia de tus clientes.',
+    content: `
+        Amplía tu menú y mejora la experiencia gastronómica de tus clientes. Añade nuevos platos con sabores irresistibles 
+        o ajusta los precios para ofrecer valor sin comprometer la calidad. 
+    `,
 };
 
 const empresasContent = {
     url: 'https://images.unsplash.com/photo-1458917524587-d3236cc8c2c8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     title: 'Insumos',
-    content: 'Agrega, actualiza o elimina los insumos de tu sucursal'
-};
-
-const promocionesContent = {
-    url: 'https://images.unsplash.com/photo-1581495701295-13b43b0f4ae8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    title: 'Promociones',
-    content: 'Personaliza tus ofertas y haz que destaquen para que tus clientes no puedan resistirse.',
+    content: `
+        Gestiona eficientemente los insumos de tu sucursal para asegurar una operación fluida y rentable. 
+        Agrega nuevos productos, actualiza inventarios y precios, y elimina artículos obsoletos con facilidad. 
+    `,
 };
 
 // Estilo para las tarjetas
