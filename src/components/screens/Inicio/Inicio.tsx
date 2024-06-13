@@ -61,19 +61,14 @@ const Inicio: React.FC = () => {
                 </Grid>
                 
                 <Grid container spacing={3} sx={{ alignContent: 'center', justifyContent: 'center' }}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Box sx={cardStyle}>
                             <InicioCard content={productosContent} sucursalId={id} />
                         </Box>
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Box sx={cardStyle}>
                             <InicioCard content={empresasContent} sucursalId={id} />
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <Box sx={cardStyle}>
-                            <InicioCard content={promocionesContent} sucursalId={id} />
                         </Box>
                     </Grid>
                 </Grid>
