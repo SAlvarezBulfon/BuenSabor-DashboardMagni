@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { cilBarChart, cilCart, cilFastfood, cilPeople, cilSpeedometer, cilClipboard } from "@coreui/icons";
+import { cilBarChart, cilCart, cilFastfood, cilPeople, cilSpeedometer, cilClipboard, cilHome } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { CNavGroup, CNavItem, CNavTitle, CSidebar, CSidebarNav } from "@coreui/react";
 import '@coreui/coreui/dist/css/coreui.min.css';
@@ -54,6 +54,14 @@ const BasicSidebar: React.FC = () => {
                     {["ADMIN", "COCINERO", "EMPLEADO", "CAJERO"].includes(rol) && (
                         <CNavItem>
                             <Link to={`/dashboard/${sucursalId}`} className="nav-link">
+                                <CIcon customClassName="nav-icon" icon={cilHome} />
+                                Inicio
+                            </Link>
+                        </CNavItem>
+                    )}
+                    {["ADMIN"].includes(rol) && (
+                        <CNavItem>
+                            <Link to={`/estadisticas/${sucursalId}`} className="nav-link">
                                 <CIcon customClassName="nav-icon" icon={cilBarChart} />
                                 Estadísticas
                             </Link>
@@ -117,7 +125,7 @@ const BasicSidebar: React.FC = () => {
                             </Link>
                         </CNavItem>
                     )}
-                    {["CAJERO", "EMPLEADO","ADMIN", "COCINERO" ].includes(rol) && (
+                    {["CAJERO", "EMPLEADO", "ADMIN", "COCINERO"].includes(rol) && (
                         <CNavItem>
                             <Link to={`/pedidos/${sucursalId}`} className="nav-link">
                                 <CIcon customClassName="nav-icon" icon={cilClipboard} />

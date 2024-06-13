@@ -157,7 +157,7 @@ const PedidosPorEstado: React.FC<PedidosPorEstadoProps> = ({ estado }) => {
                         onChange={(e) => handleEstadoChange(pedido.id, e.target.value as Estado)}
                       >
                         {estadosTransicion[pedido.estado]?.map(estado => (
-                          <MenuItem key={estado} value={estado} disabled={pedido.formaPago === 'EFECTIVO' && estado === Estado.DELIVERY}>{estado}</MenuItem>
+                          <MenuItem key={estado} value={estado} disabled={(pedido.tipoEnvio === 'TAKE_AWAY' && estado === Estado.DELIVERY) || (pedido.tipoEnvio === 'DELIVERY' && pedido.estado === Estado.TERMINADO && estado === Estado.FACTURADO )}>{estado}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>

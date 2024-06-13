@@ -16,6 +16,7 @@ import EmpresaComponent from '../components/screens/Empresa/EmpresaComponent';
 import useAuthToken from '../hooks/useAuthToken';
 import RutaPrivada from '../components/RutaPrivada/RutaPrivada';
 import Pedidos from '../components/screens/Pedidos/Pedidos';
+import Home from '../components/screens/Home/Home';
 
 const Rutas: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -65,7 +66,8 @@ const Rutas: React.FC = () => {
             <Route path="/empresa" element={<RutaPrivada component={EmpresaComponent} roles={["ADMIN"]}/> } />
             <Route path="/empresa/:empresaId" element={<RutaPrivada component={SucursalComponent} roles={["ADMIN"]}/> } />
             <Route path="/" element={<SidebarLayout />}>
-              <Route path="/dashboard/:sucursalId" element={<RutaPrivada component={Inicio} roles={["ADMIN", "COCINERO", "EMPLEADO", "CAJERO"]} />} />
+              <Route path="/dashboard/:sucursalId" element={<RutaPrivada component={Home} roles={["ADMIN", "COCINERO", "EMPLEADO", "CAJERO"]} />} />
+              <Route path="/estadisticas/:sucursalId" element={<RutaPrivada component={Inicio} roles={["ADMIN"]} />} />
               <Route path="/insumos/:sucursalId" element={<RutaPrivada component={Insumo} roles={["EMPLEADO","ADMIN"]}/>} />
               <Route path="/productos/:sucursalId" element={<RutaPrivada component={Producto} roles={["ADMIN", "COCINERO", "EMPLEADO"]} />} />
               <Route path="/unidadMedida/:sucursalId" element={<RutaPrivada component={UnidadMedida} roles={["ADMIN","EMPLEADO"]} />} />
