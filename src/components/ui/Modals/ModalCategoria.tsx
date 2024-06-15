@@ -70,7 +70,7 @@ const ModalCategoria: React.FC<ModalCategoriaProps> = ({
     const handleSubmit = async (values: CategoriaPost) => {
         const token = await getToken();
         try {
-            if (selectedSucursales.length > 0) {
+        
                 const categoriaPost: CategoriaPost = {
                     denominacion: values.denominacion,
                     esInsumo: esInsumo,
@@ -123,9 +123,7 @@ const ModalCategoria: React.FC<ModalCategoriaProps> = ({
                 } else {
                     throw new Error('No se recibió una respuesta del servidor.');
                 }
-            } else {
-                throw new Error('Debe seleccionar al menos una sucursal.');
-            }
+           
         } catch (error) {
             console.error('Error al enviar los datos:', error);
             Swal.fire({
